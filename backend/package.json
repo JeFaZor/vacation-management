@@ -14,8 +14,10 @@
     "seed": "ts-node --transpile-only src/seeds/seed-users.ts"
   },
   "dependencies": {
+    "@types/cors": "^2.8.19",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^4.21.1",
     "pg": "^8.20.0",
