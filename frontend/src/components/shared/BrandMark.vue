@@ -57,7 +57,7 @@ withDefaults(
           'font-sans font-medium tracking-wide',
           variant === 'dark' ? 'text-alpine-muted' : 'text-white/70',
           size === 'sm' ? 'text-[10px]' : size === 'lg' ? 'text-xs' : 'text-[11px]',
-          'ml-1 align-middle uppercase',
+          'ml-1 hidden align-middle uppercase sm:inline',
         ]"
       >
         · Time off
