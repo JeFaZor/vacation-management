@@ -170,7 +170,7 @@ function avatarAccent(role: Role): string {
     </aside>
 
     <!-- Right: picker -->
-    <section class="flex min-h-screen flex-col px-5 py-8 sm:px-10 sm:py-14 lg:px-12 lg:py-16">
+    <section class="flex min-h-screen flex-col px-5 py-6 sm:px-10 sm:py-10 lg:px-12 lg:py-6 h-md:lg:py-10 h-lg:lg:py-14">
       <!-- mobile brand -->
       <div class="mb-8 lg:hidden">
         <BrandMark variant="dark" size="md" />
@@ -191,7 +191,7 @@ function avatarAccent(role: Role): string {
           Requesters submit their own time off. Validators review and decide.
         </p>
 
-        <div class="mt-8">
+        <div class="mt-5 h-md:mt-6 h-lg:mt-8">
           <p
             v-if="loading"
             class="rounded-xl border border-alpine-border bg-white px-5 py-4 text-sm text-alpine-muted"
@@ -205,7 +205,7 @@ function avatarAccent(role: Role): string {
             {{ error }}
           </p>
 
-          <div v-else class="space-y-8">
+          <div v-else class="space-y-4 h-md:space-y-6 h-lg:space-y-8">
             <div
               v-for="group in [
                 {
@@ -232,16 +232,16 @@ function avatarAccent(role: Role): string {
                 </p>
               </div>
 
-              <ul class="space-y-2.5">
+              <ul class="space-y-2 h-md:space-y-2.5">
                 <li v-for="u in group.users" :key="u.id">
                   <button
                     type="button"
-                    class="group flex w-full items-center gap-4 rounded-xl border border-alpine-border bg-white px-4 py-3.5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-alpine-bg sm:px-5"
+                    class="group flex w-full items-center gap-4 rounded-xl border border-alpine-border bg-white px-4 py-2.5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-alpine-bg sm:px-5 h-md:py-3 h-lg:py-3.5"
                     @click="pick(u)"
                   >
                     <span
                       :class="[
-                        'flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition group-hover:scale-105',
+                        'flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition group-hover:scale-105 h-md:h-11 h-md:w-11',
                         avatarAccent(u.role),
                       ]"
                     >
@@ -280,7 +280,7 @@ function avatarAccent(role: Role): string {
         </div>
       </div>
 
-      <footer class="mx-auto mt-8 w-full max-w-lg text-xs text-alpine-muted">
+      <footer class="mx-auto mt-5 w-full max-w-lg text-xs text-alpine-muted h-md:mt-6 h-lg:mt-8">
         Mock authentication — no password required. Switch profiles anytime
         from the header.
       </footer>
