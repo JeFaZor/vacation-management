@@ -3,7 +3,7 @@ import { createPinia, setActivePinia } from 'pinia'
 import { useUserStore } from '../../src/stores/user'
 import type { User } from '../../src/types'
 
-const ALICE: User = { id: 1, name: 'Alice', role: 'Requester' }
+const LIOR: User = { id: 1, name: 'Lior', role: 'Requester' }
 const CAROL: User = { id: 3, name: 'Carol', role: 'Validator' }
 
 describe('user store', () => {
@@ -26,15 +26,15 @@ describe('user store', () => {
 
   it('login() sets currentUser and persists to localStorage', () => {
     const store = useUserStore()
-    store.login(ALICE)
+    store.login(LIOR)
 
-    expect(store.currentUser).toEqual(ALICE)
-    expect(JSON.parse(localStorage.getItem('currentUser') as string)).toEqual(ALICE)
+    expect(store.currentUser).toEqual(LIOR)
+    expect(JSON.parse(localStorage.getItem('currentUser') as string)).toEqual(LIOR)
   })
 
   it('logout() clears state and removes the storage key', () => {
     const store = useUserStore()
-    store.login(ALICE)
+    store.login(LIOR)
     store.logout()
 
     expect(store.currentUser).toBeNull()
@@ -44,7 +44,7 @@ describe('user store', () => {
   it('role getters reflect the current user', () => {
     const store = useUserStore()
 
-    store.login(ALICE)
+    store.login(LIOR)
     expect(store.isAuthenticated).toBe(true)
     expect(store.isRequester).toBe(true)
     expect(store.isValidator).toBe(false)

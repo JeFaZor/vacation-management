@@ -3,7 +3,7 @@ import { AppDataSource } from '../data-source';
 import { User, UserRole } from '../entities/User';
 
 const SEED_USERS: Array<{ name: string; role: UserRole }> = [
-  { name: 'Alice', role: 'Requester' },
+  { name: 'Lior', role: 'Requester' },
   { name: 'Bob', role: 'Requester' },
   { name: 'Carol', role: 'Validator' },
   { name: 'Dave', role: 'Validator' },

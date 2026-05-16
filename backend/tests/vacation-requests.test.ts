@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '@/app';
 
-const ALICE = 1;
+const LIOR = 1;
 const BOB = 2;
 const CAROL = 3;
 
@@ -32,13 +32,13 @@ async function createPendingAs(
 }
 
 describe('POST /api/vacation-requests', () => {
-  it('creates a request as a Requester (Alice) and returns 201 with full object', async () => {
+  it('creates a request as a Requester (Lior) and returns 201 with full object', async () => {
     const startDate = dateOffset(7);
     const endDate = dateOffset(10);
 
     const res = await request(app)
       .post('/api/vacation-requests')
-      .set('X-User-Id', String(ALICE))
+      .set('X-User-Id', String(LIOR))
       .send({ startDate, endDate, reason: 'Family trip' });
 
     expect(res.status).toBe(201);
@@ -49,7 +49,7 @@ describe('POST /api/vacation-requests', () => {
       status: 'Pending',
       comments: null,
       validator: null,
-      user: { id: ALICE, name: 'Alice', role: 'Requester' },
+      user: { id: LIOR, name: 'Lior', role: 'Requester' },
     });
     expect(typeof res.body.id).toBe('number');
     expect(res.body.createdAt).toBeTruthy();
@@ -77,7 +77,7 @@ describe('POST /api/vacation-requests', () => {
   it('returns 400 when endDate is before startDate', async () => {
     const res = await request(app)
       .post('/api/vacation-requests')
-      .set('X-User-Id', String(ALICE))
+      .set('X-User-Id', String(LIOR))
       .send({ startDate: dateOffset(10), endDate: dateOffset(7) });
 
     expect(res.status).toBe(400);
@@ -89,7 +89,7 @@ describe('POST /api/vacation-requests', () => {
   it('returns 400 when startDate is in the past', async () => {
     const res = await request(app)
       .post('/api/vacation-requests')
-      .set('X-User-Id', String(ALICE))
+      .set('X-User-Id', String(LIOR))
       .send({ startDate: dateOffset(-5), endDate: dateOffset(-1) });
 
     expect(res.status).toBe(400);
@@ -100,28 +100,28 @@ describe('POST /api/vacation-requests', () => {
 });
 
 describe('GET /api/vacation-requests/my', () => {
-  it('returns only the current Requester’s requests (Alice)', async () => {
-    await createPendingAs(ALICE, { reason: 'Alice 1' });
-    await createPendingAs(ALICE, { reason: 'Alice 2' });
+  it('returns only the current Requester’s requests (Lior)', async () => {
+    await createPendingAs(LIOR, { reason: 'Lior 1' });
+    await createPendingAs(LIOR, { reason: 'Lior 2' });
     await createPendingAs(BOB, { reason: 'Bob 1' });
 
     const res = await request(app)
       .get('/api/vacation-requests/my')
-      .set('X-User-Id', String(ALICE));
+      .set('X-User-Id', String(LIOR));
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(2);
     for (const r of res.body as Array<{ user: { id: number } }>) {
-      expect(r.user.id).toBe(ALICE);
+      expect(r.user.id).toBe(LIOR);
     }
   });
 });
 
 describe('GET /api/vacation-requests', () => {
   it('returns all requests when called as a Validator (Carol)', async () => {
-    await createPendingAs(ALICE);
+    await createPendingAs(LIOR);
     await createPendingAs(BOB);
-    await createPendingAs(ALICE);
+    await createPendingAs(LIOR);
 
     const res = await request(app)
       .get('/api/vacation-requests')
@@ -132,11 +132,11 @@ describe('GET /api/vacation-requests', () => {
   });
 
   it('filters by status=Pending', async () => {
-    const aliceId = await createPendingAs(ALICE);
+    const liorId = await createPendingAs(LIOR);
     await createPendingAs(BOB);
 
     await request(app)
-      .patch(`/api/vacation-requests/${aliceId}/approve`)
+      .patch(`/api/vacation-requests/${liorId}/approve`)
       .set('X-User-Id', String(CAROL))
       .send({});
 
@@ -152,7 +152,7 @@ describe('GET /api/vacation-requests', () => {
 
 describe('PATCH /api/vacation-requests/:id/approve', () => {
   it('as Validator: sets status to Approved, sets validator and comments', async () => {
-    const id = await createPendingAs(ALICE);
+    const id = await createPendingAs(LIOR);
 
     const res = await request(app)
       .patch(`/api/vacation-requests/${id}/approve`)
@@ -169,7 +169,7 @@ describe('PATCH /api/vacation-requests/:id/approve', () => {
   });
 
   it('returns 409 when approving a request that is already Approved', async () => {
-    const id = await createPendingAs(ALICE);
+    const id = await createPendingAs(LIOR);
 
     const first = await request(app)
       .patch(`/api/vacation-requests/${id}/approve`)
@@ -189,7 +189,7 @@ describe('PATCH /api/vacation-requests/:id/approve', () => {
 
 describe('PATCH /api/vacation-requests/:id/reject', () => {
   it('returns 400 when comments are missing', async () => {
-    const id = await createPendingAs(ALICE);
+    const id = await createPendingAs(LIOR);
 
     const res = await request(app)
       .patch(`/api/vacation-requests/${id}/reject`)
@@ -203,7 +203,7 @@ describe('PATCH /api/vacation-requests/:id/reject', () => {
   });
 
   it('rejects a request when comments are provided', async () => {
-    const id = await createPendingAs(ALICE);
+    const id = await createPendingAs(LIOR);
 
     const res = await request(app)
       .patch(`/api/vacation-requests/${id}/reject`)

@@ -12,7 +12,7 @@ describe('GET /api/users', () => {
     const byName = Object.fromEntries(
       (res.body as Array<{ id: number; name: string; role: string }>).map((u) => [u.name, u]),
     );
-    expect(byName.Alice?.role).toBe('Requester');
+    expect(byName.Lior?.role).toBe('Requester');
     expect(byName.Bob?.role).toBe('Requester');
     expect(byName.Carol?.role).toBe('Validator');
     expect(byName.Dave?.role).toBe('Validator');

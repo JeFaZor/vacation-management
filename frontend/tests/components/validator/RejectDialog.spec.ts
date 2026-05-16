@@ -12,7 +12,7 @@ const STUB_REQUEST: VacationRequest = {
   comments: null,
   createdAt: '2030-01-01T00:00:00.000Z',
   updatedAt: '2030-01-01T00:00:00.000Z',
-  user: { id: 1, name: 'Alice', role: 'Requester' },
+  user: { id: 1, name: 'Lior', role: 'Requester' },
   validator: null,
 }
 
