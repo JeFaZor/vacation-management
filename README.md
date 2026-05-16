@@ -228,7 +228,7 @@ Current count: **19 tests, 6 suites**, ~1.4s. Coverage:
 - No audit log beyond `validator_id` and `updated_at` on the request row.
 - Reason field is capped at 1000 characters (chosen to accommodate detailed circumstances; a stricter limit would be opinionated).
 
-## Bonus Features (beyond the brief)
+## Bonus Features (Beyond the brief)
 
 - **StatStrip on RequesterView** with derived counts (approved days, pending, rejected) at the top of the page.
 - **Toast notification system** with auto-dismiss for Validator actions.
